@@ -13,8 +13,8 @@
 
 ## Run
 - `npm run dev`
-- Visit [Variant A website](http://variant-a.dev:3000)
-- Visit [Variant B website](http://variant-b.dev:3000)
+- Visit [Variant A website](http://variant-a.local:3000)
+- Visit [Variant B website](http://variant-b.local:3000)
 
 ## Debug
 - Look in the terminal console log output to verifiy the domain settings (which are determined in `utils/helpers.js`)
