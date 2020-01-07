@@ -4,7 +4,8 @@
 - NodeJS 10.15.0 (or use `nvm use` which honors the `.nvmrc` file)
 
 ## Installation
-- `git clone {REPO}`
+- `git clone https://github.com/dirkpennings/nextjs-redux-multi-domain`
+- `cd nextjs-redux-multi-domain`
 - `npm install`
 - Add `variant-a.local  127.0.0.1` to the hosts file
 - Add `variant-b.local  127.0.0.1` to the hosts file
