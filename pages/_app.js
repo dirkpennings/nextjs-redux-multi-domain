@@ -5,6 +5,8 @@ class MyApp extends App {
 	static async getInitialProps(appContext) {
 		let host = ''
 
+		console.log('initial global.application', global.application)
+
 		if (appContext.ctx.req) {
 			// server side
 
