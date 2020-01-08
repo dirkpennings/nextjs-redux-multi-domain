@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRedux } from '../lib/redux'
+import { connect } from 'react-redux'
 
 class Index extends React.Component {
 	render() {
@@ -8,12 +8,6 @@ class Index extends React.Component {
 	}
 }
 
-Index.getInitialProps = ({ reduxStore, query, res }) => {
-	const state = reduxStore.getState()
-
-	return {
-		variant: state.application.variant,
-	}
-}
-
-export default withRedux(Index)
+export default connect(state => ({
+	variant: state.application.variant,
+}))(Index)

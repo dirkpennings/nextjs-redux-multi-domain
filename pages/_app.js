@@ -1,46 +1,28 @@
 import React from 'react'
 import App from 'next/app'
+import { withRedux } from '../lib/redux'
+import { HOST } from '../constants/appConstants'
 
 class MyApp extends App {
 	static async getInitialProps(appContext) {
-		let host = ''
-
-		console.log('initial global.application', global.application)
-
 		if (appContext.ctx.req) {
-			// server side
-
-			console.log('===============', appContext.ctx.req.headers.host)
-
-			host = appContext.ctx.req.headers.host
-		} else {
-			// client side
-			host = window.location.host
+			appContext.reduxStore.dispatch({ type: HOST.SET, payload: appContext.ctx.req.headers.host })
 		}
 
-		// remove port number if present
-		host = host.indexOf(':') ? host.split(':')[0] : host
+		let appProps = await App.getInitialProps({ ...appContext })
 
-		// set global variable so the application reducer can use this
-		// is this a shared variable? does it exceed sessions?
-		global.application = {
-			host,
-		}
-
-		let appProps = await App.getInitialProps({ ...appContext, host })
-
-		return { ...appProps, host }
+		return { ...appProps }
 	}
 
 	render() {
-		const { Component, pageProps, host } = this.props
+		const { Component, pageProps } = this.props
 
 		return (
-			<div id="application-root" data-host={host}>
+			<div id="application-root">
 				<Component {...pageProps} />
 			</div>
 		)
 	}
 }
 
-export default MyApp
+export default withRedux(MyApp)
