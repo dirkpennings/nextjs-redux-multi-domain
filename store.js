@@ -1,9 +1,9 @@
 import { createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from './reducers'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 const initialState = {}
 
-export function initializeStore(preloadedState = initialState) {
+export const initializeStore = (preloadedState = initialState) => {
 	return createStore(rootReducer, preloadedState, composeWithDevTools())
 }

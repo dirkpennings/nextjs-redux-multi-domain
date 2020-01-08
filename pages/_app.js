@@ -1,28 +1,32 @@
 import React from 'react'
 import App from 'next/app'
-import { withRedux } from '../lib/redux'
+import withRedux from 'next-redux-wrapper'
+import { Provider } from 'react-redux'
+import { initializeStore } from '../store'
 import { HOST } from '../constants/appConstants'
 
 class MyApp extends App {
-	static async getInitialProps(appContext) {
-		if (appContext.ctx.req) {
-			appContext.reduxStore.dispatch({ type: HOST.SET, payload: appContext.ctx.req.headers.host })
+	static async getInitialProps({ Component, ctx }) {
+		if (ctx.req) {
+			ctx.store.dispatch({ type: HOST.SET, payload: ctx.req.headers.host })
 		}
 
-		let appProps = await App.getInitialProps({ ...appContext })
+		const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
 
-		return { ...appProps }
+		return { pageProps }
 	}
 
 	render() {
-		const { Component, pageProps } = this.props
+		const { Component, pageProps, store } = this.props
 
 		return (
-			<div id="application-root">
-				<Component {...pageProps} />
-			</div>
+			<Provider store={store}>
+				<div id="application-root">
+					<Component {...pageProps} />
+				</div>
+			</Provider>
 		)
 	}
 }
 
-export default withRedux(MyApp)
+export default withRedux(initializeStore, { debug: true })(MyApp)
