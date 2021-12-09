@@ -13,7 +13,7 @@
   "url": "https://github.com/dirkpennings/nextjs-redux-multi-domain",
   "license": "ISC",
   "dependencies": {
-    "next": "^9.1.7",
+    "next": "^11.1.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
